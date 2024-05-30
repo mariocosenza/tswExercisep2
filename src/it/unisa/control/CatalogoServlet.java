@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.html.HtmlEscapers;
+
 import it.unisa.model.ProdottoBean;
 import it.unisa.model.ProdottoDao;
 
@@ -31,16 +33,16 @@ public class CatalogoServlet extends HttpServlet {
 		try {
 			if(action!=null) {
 				if(action.equalsIgnoreCase("add")) {
-					bean.setNome(request.getParameter("nome"));
-					bean.setDescrizione(request.getParameter("descrizione"));
-					bean.setIva(request.getParameter("iva"));
+					bean.setNome(HtmlEscapers.htmlEscaper().escape(request.getParameter("nome")));
+					bean.setDescrizione(HtmlEscapers.htmlEscaper().escape(request.getParameter("descrizione")));
+					bean.setIva(HtmlEscapers.htmlEscaper().escape(request.getParameter("iva")));
 					bean.setPrezzo(Double.parseDouble(request.getParameter("prezzo")));
 					bean.setQuantità(Integer.parseInt(request.getParameter("quantità")));
-					bean.setPiattaforma(request.getParameter("piattaforma"));
-					bean.setGenere(request.getParameter("genere"));
-					bean.setImmagine(request.getParameter("img"));
-					bean.setDataUscita(request.getParameter("dataUscita"));
-					bean.setDescrizioneDettagliata(request.getParameter("descDett"));
+					bean.setPiattaforma(HtmlEscapers.htmlEscaper().escape(request.getParameter("piattaforma")));
+					bean.setGenere(HtmlEscapers.htmlEscaper().escape(request.getParameter("genere")));
+					bean.setImmagine(HtmlEscapers.htmlEscaper().escape(request.getParameter("img")));
+					bean.setDataUscita(HtmlEscapers.htmlEscaper().escape(request.getParameter("dataUscita")));
+					bean.setDescrizioneDettagliata(HtmlEscapers.htmlEscaper().escape(request.getParameter("descDett")));
 					bean.setInVendita(true);
 					prodDao.doSave(bean);
 				}
@@ -48,16 +50,16 @@ public class CatalogoServlet extends HttpServlet {
 				else if(action.equalsIgnoreCase("modifica")) {
 					
 					bean.setIdProdotto(Integer.parseInt(request.getParameter("id")));
-					bean.setNome(request.getParameter("nome"));
-					bean.setDescrizione(request.getParameter("descrizione"));
-					bean.setIva(request.getParameter("iva"));
+					bean.setNome(HtmlEscapers.htmlEscaper().escape(request.getParameter("nome")));
+					bean.setDescrizione(HtmlEscapers.htmlEscaper().escape(request.getParameter("descrizione")));
+					bean.setIva(HtmlEscapers.htmlEscaper().escape(request.getParameter("iva")));
 					bean.setPrezzo(Double.parseDouble(request.getParameter("prezzo")));
 					bean.setQuantità(Integer.parseInt(request.getParameter("quantità")));
-					bean.setPiattaforma(request.getParameter("piattaforma"));
-					bean.setGenere(request.getParameter("genere"));
-					bean.setImmagine(request.getParameter("img"));
-					bean.setDataUscita(request.getParameter("dataUscita"));
-					bean.setDescrizioneDettagliata(request.getParameter("descDett"));
+					bean.setPiattaforma(HtmlEscapers.htmlEscaper().escape(request.getParameter("piattaforma")));
+					bean.setGenere(HtmlEscapers.htmlEscaper().escape(request.getParameter("genere")));
+					bean.setImmagine(HtmlEscapers.htmlEscaper().escape(request.getParameter("img")));
+					bean.setDataUscita(HtmlEscapers.htmlEscaper().escape(request.getParameter("dataUscita")));
+					bean.setDescrizioneDettagliata(HtmlEscapers.htmlEscaper().escape(request.getParameter("descDett")));
 					bean.setInVendita(true);
 					prodDao.doUpdate(bean);	
 				}
