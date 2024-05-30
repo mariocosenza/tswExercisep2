@@ -27,7 +27,6 @@ public class HomeServlet extends HttpServlet {
 		ProdottoDao dao = new ProdottoDao();
 		
 		ArrayList<ArrayList<ProdottoBean>> categorie = new ArrayList<>();
-		String redirectedPage = request.getParameter("page");
 		
 		try {
 			ArrayList<ProdottoBean> PS5 = dao.doRetrieveByPiattaforma("PlayStation 5");
@@ -50,8 +49,8 @@ public class HomeServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + redirectedPage);
-		dispatcher.forward(request, response);
+		
+		request.getRequestDispatcher("Home.jsp").forward(request, response);
 	}
 
 
