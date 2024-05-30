@@ -1,9 +1,12 @@
 package it.unisa.control;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,21 +43,21 @@ public class RegistrazioneServlet extends HttpServlet {
         dataNascita = parti[2] + "-" + parti[1] + "-" + parti[0];
 		
 		try {
-			
+			MessageDigest md = MessageDigest.getInstance("SHA-512");
 			UserBean user = new UserBean();
 			user.setNome(nome);
 			user.setCognome(cognome);
 			user.setEmail(email);
 			user.setDataDiNascita(Date.valueOf(dataNascita));
 			user.setUsername(username);
-			user.setPassword(pwd);
+			user.setPassword(Arrays.toString(md.digest(pwd.getBytes())));
 			user.setAmministratore(false);
 			user.setCap(null);
 			user.setIndirizzo(null);
 			user.setCartaDiCredito(null);
 			dao.doSave(user);
 			
-		}catch(SQLException e) {
+		}catch(SQLException | NoSuchAlgorithmException e) {
 			System.out.println("Error:" + e.getMessage());
 		}
 				

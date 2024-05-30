@@ -1,7 +1,10 @@
 package it.unisa.control;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,8 +35,9 @@ public class LoginServlet extends HttpServlet {
 		{	    
 
 		     UserBean user = new UserBean();
+		     MessageDigest md = MessageDigest.getInstance("SHA-512");
 		     user.setUsername(request.getParameter("un"));
-		     user.setPassword(request.getParameter("pw"));
+		     user.setPassword(Arrays.toString(md.digest(request.getParameter("pw").getBytes())));
 		     user = usDao.doRetrieve(request.getParameter("un"),request.getParameter("pw"));
 			   		    
 		    
@@ -56,7 +60,7 @@ public class LoginServlet extends HttpServlet {
 		} 
 				
 				
-		catch(SQLException e) {
+		catch(SQLException | NoSuchAlgorithmException e) {
 			System.out.println("Error:" + e.getMessage());
 		}
 		  }
